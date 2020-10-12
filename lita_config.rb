@@ -17,7 +17,16 @@ Lita.configure do |config|
 
   # The adapter you want to connect with. Make sure you've added the
   # appropriate gem to the Gemfile.
-  config.robot.adapter = :shell
+  # heroku uses a RACK_ENV of 'production' by default
+  if ENV['RACK_ENV']=='production'
+	config.robot.adapter = :slack
+	config.redis[:url] = ENV.fetch('REDIS_URL')
+  else
+	config.robot.adapter = :shell
+  end
+  # slack adapter demands a value even in dev when we aren't using it
+  config.adapters.slack.token = ENV.fetch('SLACK_TOKEN','')
+  #config.adapters.slack.token = "xoxb-1434085296145-1414731373062-wJGKaISrlp7jEKlA30LhuKHq"
 
   ## Example: Set options for the chosen adapter.
   # config.adapter.username = "myname"

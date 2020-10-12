@@ -1,4 +1,4 @@
-source "http://mirrors.aliyun.com/rubygems/"
+source "https://rubygems.org"
 
 gem "lita"
 
@@ -12,3 +12,5 @@ gem "lita"
 # For example:
 # gem "lita-google-images"
 # gem "lita-karma"
+
+gem "lita-slack"
