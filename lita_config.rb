@@ -26,7 +26,16 @@ Lita.configure do |config|
   end
   # slack adapter demands a value even in dev when we aren't using it
   config.adapters.slack.token = ENV.fetch('SLACK_TOKEN','')
-  #config.adapters.slack.token = "xoxb-1434085296145-1414731373062-wJGKaISrlp7jEKlA30LhuKHq"
+    #config.adapters.slack.token = "xoxb-1434085296145-1414731373062-wJGKaISrlp7jEKlA30LhuKHq"
+  
+  if ENV.fetch('RACK_ENV', 'development')=='production' do
+	config.robot.adapter = :slack
+	config.adapters.slack.token = ENV.fetch('SLACK_API_KEY', '')
+  else
+	# don't bother with Slack on your dev machine
+	config.robot.adapter = :shell
+  end
+
 
   ## Example: Set options for the chosen adapter.
   # config.adapter.username = "myname"
