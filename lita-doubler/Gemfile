@@ -1,0 +1,3 @@
+source "http://mirrors.aliyun.com/rubygems/"
+
+gemspec
